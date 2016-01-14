@@ -33,6 +33,8 @@ public class MainActivity extends Activity implements OnClickListener {
     private Calendar _calendar;
     private int month, year;
 
+    private ManageTABLE objManageTABLE;
+
     private void getRequestParameters() {
         Intent intent = getIntent();
         if (intent != null) {
@@ -52,6 +54,11 @@ public class MainActivity extends Activity implements OnClickListener {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //Connected Database
+        connectedDatabase();
+
+
 
         _calendar = Calendar.getInstance(Locale.getDefault());
         month = _calendar.get(Calendar.MONTH);
@@ -75,6 +82,10 @@ public class MainActivity extends Activity implements OnClickListener {
         adapter.notifyDataSetChanged();
         calendarView.setAdapter(adapter);
 
+    }
+
+    private void connectedDatabase() {
+        objManageTABLE = new ManageTABLE(this);
     }
 
     @Override
