@@ -268,6 +268,12 @@ public class MainActivity extends Activity implements OnClickListener {
             String date_month_year = (String) view.getTag();
             Toast.makeText(getApplicationContext(), date_month_year, Toast.LENGTH_SHORT).show();
 
-        }
+            checkDatabase(date_month_year);
+
+        }   // onClick
     }
+
+    private void checkDatabase(String date_month_year) {
+
+    }   //checkDatabase
 }
