@@ -1,7 +1,9 @@
 package rtc.amornrat.sirinrat.solendar;
 
-import android.support.v7.app.AppCompatActivity;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -23,7 +25,32 @@ public class ShowToDoList extends AppCompatActivity {
         //Show Date
         showDate();
 
+        //Create ListView
+        createListView();
+
     }   // Main Method
+
+    private void createListView() {
+
+        SQLiteDatabase objSqLiteDatabase = openOrCreateDatabase(MyOpenHelper.DATABASE_NAME,
+                MODE_PRIVATE, null);
+
+        Cursor objCursor = objSqLiteDatabase.rawQuery("SELECT * FROM todoTABLE WHERE Date = " + "'" + showDateString + "'", null);
+        objCursor.moveToFirst();
+        String[] strTitle = new String[objCursor.getCount()];
+
+        for (int i = 0; i < objCursor.getCount(); i++) {
+
+            strTitle[i] = objCursor.getString(objCursor.getColumnIndex(ManageTABLE.DATABASE_ToDo));
+            objCursor.moveToNext();
+
+        }   // for
+        objCursor.close();
+
+        MyAdapter objMyAdapter = new MyAdapter(ShowToDoList.this, strTitle);
+        toDoListView.setAdapter(objMyAdapter);
+
+    }   // createListView
 
     private void bindWidget() {
         showDateTextView = (TextView) findViewById(R.id.txtShowDate);
