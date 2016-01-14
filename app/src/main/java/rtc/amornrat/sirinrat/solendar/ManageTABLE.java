@@ -1,5 +1,6 @@
 package rtc.amornrat.sirinrat.solendar;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -26,6 +27,17 @@ public class ManageTABLE {
         readSqLiteDatabase = objMyOpenHelper.getReadableDatabase();
 
     }   // Constructor
+
+    //Add New Value To SQLite
+    public long addToDoList(String strDate, String strToDo) {
+
+        ContentValues objContentValues = new ContentValues();
+        objContentValues.put(DATABASE_Date, strDate);
+        objContentValues.put(DATABASE_ToDo, strToDo);
+
+        return writeSqLiteDatabase.insert(TABLE_TODO, null, objContentValues);
+    }
+
 
     //Search Engine
     public String[] searchDate(String strDate) {
