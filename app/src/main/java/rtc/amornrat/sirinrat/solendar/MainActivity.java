@@ -1,7 +1,9 @@
 package rtc.amornrat.sirinrat.solendar;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -275,5 +277,45 @@ public class MainActivity extends Activity implements OnClickListener {
 
     private void checkDatabase(String date_month_year) {
 
+        //Check Date
+        try {
+
+            String[] resultStrings = objManageTABLE.searchDate(date_month_year);
+            Log.d("Solendar", "Have " + resultStrings[1]);
+
+            Intent objIntent = new Intent(MainActivity.this, ShowToDoList.class);
+            objIntent.putExtra("Date", date_month_year);
+            startActivity(objIntent);
+
+        } catch (Exception e) {
+            myAlertDialog(date_month_year);
+        }
+
     }   //checkDatabase
+
+    private void myAlertDialog(final String date_month_year) {
+
+        AlertDialog.Builder objBuilder = new AlertDialog.Builder(this);
+        objBuilder.setIcon(R.drawable.icon_myaccount);
+        objBuilder.setTitle("วันนี่ว่าง");
+        objBuilder.setMessage("วันนี่ยังไม่มีข้อมูล ต้องการเพิ่มข้อมูล ไหมคะ ? ");
+        objBuilder.setCancelable(false);
+        objBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Intent objIntent = new Intent(MainActivity.this, AddToDoList.class);
+                objIntent.putExtra("Date", date_month_year);
+                startActivity(objIntent);
+                dialogInterface.dismiss();
+            }
+        });
+        objBuilder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+        objBuilder.show();
+
+    }   // myAlertDialog
 }
