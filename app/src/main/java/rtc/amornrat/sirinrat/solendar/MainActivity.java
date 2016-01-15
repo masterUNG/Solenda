@@ -86,7 +86,7 @@ public class MainActivity extends Activity implements OnClickListener {
         Date currentDate = new Date();
         String strCurrentDate = myDateFormat.format(currentDate);
 
-        currentMonth.setText(strCurrentDate);
+        currentMonth.setText(_calendar.getTime().toString());
 
         nextMonth = (ImageView) this.findViewById(R.id.nextMonth);
         nextMonth.setOnClickListener(this);
