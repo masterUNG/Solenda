@@ -5,9 +5,12 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class ShowToDoList extends AppCompatActivity {
 
@@ -63,7 +66,27 @@ public class ShowToDoList extends AppCompatActivity {
         MyAdapter objMyAdapter = new MyAdapter(ShowToDoList.this, strTitle);
         toDoListView.setAdapter(objMyAdapter);
 
+        //Active When Click ListView for Delete
+        toDoListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                Log.d("Solendar1", "id ==> " + Integer.toString(i+1));
+
+                confirmDelete(i+1);
+
+            } // event
+        });
+
     }   // createListView
+
+    private void confirmDelete(int id) {
+        SQLiteDatabase objSqLiteDatabase = openOrCreateDatabase(MyOpenHelper.DATABASE_NAME,
+                MODE_PRIVATE, null);
+        objSqLiteDatabase.delete(ManageTABLE.TABLE_TODO, ManageTABLE.DATABASE_id + "=" + id, null);
+        Toast.makeText(ShowToDoList.this, "Delete OK", Toast.LENGTH_SHORT).show();
+        finish();
+    }
 
     private void bindWidget() {
         showDateTextView = (TextView) findViewById(R.id.txtShowDate);

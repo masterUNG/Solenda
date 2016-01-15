@@ -16,7 +16,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".ShowToDoList" />
-        <activity android:name=".AddToDoList"></activity>
+        <activity android:name=".AddToDoList" />
+        <activity android:name=".SplashScreen"></activity>
     </application>
 
 </manifest>
