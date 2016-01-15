@@ -87,7 +87,7 @@ public class ShowToDoList extends AppCompatActivity {
                 MODE_PRIVATE, null);
         objSqLiteDatabase.delete(ManageTABLE.TABLE_TODO, ManageTABLE.DATABASE_id + "=" + Integer.parseInt(strID), null);
         Toast.makeText(ShowToDoList.this, "Delete OK", Toast.LENGTH_SHORT).show();
-        finish();
+        createListView();
     }
 
     private void bindWidget() {
