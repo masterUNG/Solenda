@@ -18,6 +18,7 @@ public class ShowToDoList extends AppCompatActivity {
     private TextView showDateTextView;
     private ListView toDoListView;
     private String showDateString;
+    private String[] strTitle, strID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +46,6 @@ public class ShowToDoList extends AppCompatActivity {
     }   // clickAddToDo
 
 
-
     private void createListView() {
 
         SQLiteDatabase objSqLiteDatabase = openOrCreateDatabase(MyOpenHelper.DATABASE_NAME,
@@ -53,11 +53,13 @@ public class ShowToDoList extends AppCompatActivity {
 
         Cursor objCursor = objSqLiteDatabase.rawQuery("SELECT * FROM todoTABLE WHERE Date = " + "'" + showDateString + "'", null);
         objCursor.moveToFirst();
-        String[] strTitle = new String[objCursor.getCount()];
+        strTitle = new String[objCursor.getCount()];
+        strID = new String[objCursor.getCount()];
 
         for (int i = 0; i < objCursor.getCount(); i++) {
 
             strTitle[i] = objCursor.getString(objCursor.getColumnIndex(ManageTABLE.DATABASE_ToDo));
+            strID[i] = objCursor.getString(objCursor.getColumnIndex(ManageTABLE.DATABASE_id));
             objCursor.moveToNext();
 
         }   // for
@@ -71,19 +73,19 @@ public class ShowToDoList extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                Log.d("Solendar1", "id ==> " + Integer.toString(i+1));
+                Log.d("Solendar1", "Title ==> " + strTitle[i]);
 
-                confirmDelete(i+1);
+                confirmDelete(strID[i]);
 
             } // event
         });
 
     }   // createListView
 
-    private void confirmDelete(int id) {
+    private void confirmDelete(String strID) {
         SQLiteDatabase objSqLiteDatabase = openOrCreateDatabase(MyOpenHelper.DATABASE_NAME,
                 MODE_PRIVATE, null);
-        objSqLiteDatabase.delete(ManageTABLE.TABLE_TODO, ManageTABLE.DATABASE_id + "=" + id, null);
+        objSqLiteDatabase.delete(ManageTABLE.TABLE_TODO, ManageTABLE.DATABASE_id + "=" + Integer.parseInt(strID), null);
         Toast.makeText(ShowToDoList.this, "Delete OK", Toast.LENGTH_SHORT).show();
         finish();
     }
