@@ -117,15 +117,17 @@ public class MainActivity extends Activity implements OnClickListener {
         String[] databaseDateStrings = new String[objCursor.getCount()];
         String[] dayStrings = new String[objCursor.getCount()];
         String[] monthStrings = new String[objCursor.getCount()];
+        int[] monthInts = new int[objCursor.getCount()];
         String[] yearStrings = new String[objCursor.getCount()];
 
         objCursor.moveToFirst();
-        for (int i=0;i<objCursor.getCount();i++) {
+        for (int i = 0; i < objCursor.getCount(); i++) {
 
             databaseDateStrings[i] = objCursor.getString(objCursor.getColumnIndex(ManageTABLE.DATABASE_Date));
             String[] sectionDate = databaseDateStrings[i].split("-");
             dayStrings[i] = sectionDate[0];
             monthStrings[i] = sectionDate[1];
+            monthInts[i] = changeMonthtoInt(monthStrings[i]);
             yearStrings[i] = sectionDate[2];
 
 
@@ -133,6 +135,9 @@ public class MainActivity extends Activity implements OnClickListener {
             Log.d(tag, "Date[" + Integer.toString(i) + "] = " + dayStrings[i]);
             Log.d(tag, "month[" + Integer.toString(i) + "] = " + monthStrings[i]);
             Log.d(tag, "year[" + Integer.toString(i) + "] = " + yearStrings[i]);
+            Log.d(tag, "intMonth[" + Integer.toString(i) + "] = " + Integer.toString(monthInts[i]));
+
+
 
 
             objCursor.moveToNext();
@@ -140,6 +145,45 @@ public class MainActivity extends Activity implements OnClickListener {
         objCursor.close();
 
     }   // findDateNotification
+
+    private int changeMonthtoInt(String monthString) {
+
+        int intResult = 0;
+        String[] month = {"January", "February", "March", "April", "May", "June", "July",
+                "August", "September", "October", "November", "December"};
+
+        if (monthString.equals(month[0])) {
+            intResult = 0;
+        } else if (monthString.equals(month[1])) {
+            intResult = 1;
+        } else if (monthString.equals(month[2])) {
+            intResult = 2;
+        } else if (monthString.equals(month[3])) {
+            intResult = 3;
+        } else if (monthString.equals(month[4])) {
+            intResult = 4;
+        } else if (monthString.equals(month[5])) {
+            intResult = 5;
+        } else if (monthString.equals(month[6])) {
+            intResult = 6;
+        } else if (monthString.equals(month[7])) {
+            intResult = 7;
+        } else if (monthString.equals(month[8])) {
+            intResult = 8;
+        } else if (monthString.equals(month[9])) {
+            intResult = 9;
+        } else if (monthString.equals(month[10])) {
+            intResult = 10;
+        } else if (monthString.equals(month[11])) {
+            intResult = 11;
+        } else {
+            intResult = 12;
+        }
+
+
+        return intResult;
+    }
+
 
     @Override
     protected void onRestart() {
@@ -341,7 +385,6 @@ public class MainActivity extends Activity implements OnClickListener {
             checkDatabase(date_month_year);
 
 
-
         }   // onClick
     }
 
@@ -362,7 +405,6 @@ public class MainActivity extends Activity implements OnClickListener {
             } else {
                 myAlertDialog(date_month_year);
             }
-
 
 
         } catch (Exception e) {
