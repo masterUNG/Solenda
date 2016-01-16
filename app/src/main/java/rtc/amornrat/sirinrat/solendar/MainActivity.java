@@ -30,7 +30,7 @@ import java.util.List;
 import java.util.Locale;
 
 public class MainActivity extends Activity implements OnClickListener {
-    private static final String tag = "Main";
+    private static final String tag = "Master";
     private Button selectedDayMonthYearButton;
     private Button currentMonth;
     private ImageView prevMonth;
@@ -39,6 +39,8 @@ public class MainActivity extends Activity implements OnClickListener {
     private GridCellAdapter adapter;
     private Calendar _calendar;
     private int month, year;
+    private static final String myTag = "TestMaster";
+
 
     private ManageTABLE objManageTABLE;
 
@@ -52,7 +54,7 @@ public class MainActivity extends Activity implements OnClickListener {
                 }
             }
         }
-    }
+    }   // getRequestParameters
 
     /**
      * Called when the activity is first created.
@@ -69,10 +71,12 @@ public class MainActivity extends Activity implements OnClickListener {
         findDateNotification();
 
 
-
+        //Find Current Date
         _calendar = Calendar.getInstance(Locale.getDefault());
         month = _calendar.get(Calendar.MONTH);
         year = _calendar.get(Calendar.YEAR);
+        Log.d(myTag, "month = " + month);   // jan = 0, feb = 1 ... dec = 11
+        Log.d(myTag, "year = " + year);     // year = 2016
 
         selectedDayMonthYearButton = (Button) this.findViewById(R.id.selectedDayMonthYear);
 
@@ -102,15 +106,31 @@ public class MainActivity extends Activity implements OnClickListener {
 
     private void findDateNotification() {
 
+        String tag = "masterSolendar";
+
         //Read All Column Date
         SQLiteDatabase objSqLiteDatabase = openOrCreateDatabase(MyOpenHelper.DATABASE_NAME,
                 MODE_PRIVATE, null);
+
         Cursor objCursor = objSqLiteDatabase.rawQuery("SELECT * FROM todoTABLE", null);
+
         String[] databaseDateStrings = new String[objCursor.getCount()];
+        String[] dayStrings = new String[objCursor.getCount()];
+        String[] monthStrings = new String[objCursor.getCount()];
+        String[] yearStrings = new String[objCursor.getCount()];
+
         objCursor.moveToFirst();
         for (int i=0;i<objCursor.getCount();i++) {
+
             databaseDateStrings[i] = objCursor.getString(objCursor.getColumnIndex(ManageTABLE.DATABASE_Date));
-            Log.d("Solendar", "Date[" + Integer.toString(i) + "] = " + databaseDateStrings[i]);
+            String[] sectionDate = databaseDateStrings[i].split("-");
+            dayStrings[i] = sectionDate[0];
+            monthStrings[i] = sectionDate[1];
+            yearStrings[i] = sectionDate[2];
+
+
+            Log.d(tag, "databaseDate[" + Integer.toString(i) + "] = " + databaseDateStrings[i]);
+            Log.d(tag, "Date[" + Integer.toString(i) + "] = " + dayStrings[i]);
             objCursor.moveToNext();
         }   // for
         objCursor.close();
@@ -188,6 +208,8 @@ public class MainActivity extends Activity implements OnClickListener {
             Log.d(tag, "Month: " + month + " " + "Year: " + year);
             Calendar calendar = Calendar.getInstance();
             currentDayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
+
+            Log.d(myTag, "currentDayOfMonty == " + currentDayOfMonth);
 
             printMonth(month, year);
         }
