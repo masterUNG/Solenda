@@ -131,6 +131,10 @@ public class MainActivity extends Activity implements OnClickListener {
 
             Log.d(tag, "databaseDate[" + Integer.toString(i) + "] = " + databaseDateStrings[i]);
             Log.d(tag, "Date[" + Integer.toString(i) + "] = " + dayStrings[i]);
+            Log.d(tag, "month[" + Integer.toString(i) + "] = " + monthStrings[i]);
+            Log.d(tag, "year[" + Integer.toString(i) + "] = " + yearStrings[i]);
+
+
             objCursor.moveToNext();
         }   // for
         objCursor.close();
