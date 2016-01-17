@@ -1,8 +1,9 @@
 package rtc.amornrat.sirinrat.solendar;
 
-import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.AlertDialog;
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -10,7 +11,9 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,7 +34,7 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
 
-public class MainActivity extends Activity implements OnClickListener {
+public class MainActivity extends AppCompatActivity implements OnClickListener {
     private static final String tag = "Master";
     private Button selectedDayMonthYearButton;
     private Button currentMonth;
@@ -106,6 +109,25 @@ public class MainActivity extends Activity implements OnClickListener {
 
     }   // Main Method
 
+    public void masterNotification() {
+
+        Intent objIntent = new Intent(Intent.ACTION_VIEW);
+        objIntent.setData(Uri.parse("http://androidthai.in.th/about-me.html"));
+        PendingIntent objPendingIntent = PendingIntent.getActivity(this, 0, objIntent, 0);
+
+        Notification objNotification = new Notification.Builder(this)
+                .setSmallIcon(R.drawable.icon_cow)
+                .setContentTitle("Title")
+                .setContentText("Message")
+                .setAutoCancel(true)
+                .setContentIntent(objPendingIntent)
+                .build();
+
+        NotificationManager objNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        objNotificationManager.notify(1000, objNotification);
+
+    }   // masterNotification
+
     private void findDateNotification() {
 
         String tag = "masterSolendar";
@@ -149,6 +171,7 @@ public class MainActivity extends Activity implements OnClickListener {
             setCalendar.set(Calendar.MONTH, 0);
             setCalendar.set(Calendar.HOUR_OF_DAY, objCalendar.get(Calendar.HOUR_OF_DAY));
             setCalendar.set(Calendar.MINUTE, objCalendar.get(Calendar.MINUTE) + 1);
+            setCalendar.set(Calendar.SECOND, 0);
 
             Log.d(tag2, "setCalendar[" + i + "]" + setCalendar.getTime());
 

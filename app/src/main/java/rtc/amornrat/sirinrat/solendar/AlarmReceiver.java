@@ -17,5 +17,7 @@ public class AlarmReceiver extends BroadcastReceiver{
         MediaPlayer alarmMediaPlayer = MediaPlayer.create(context, R.raw.intro_start_horse);
         alarmMediaPlayer.start();
 
+
+
     }
 }   // Main Class
