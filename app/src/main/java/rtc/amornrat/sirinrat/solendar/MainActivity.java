@@ -152,6 +152,7 @@ public class MainActivity extends Activity implements OnClickListener {
 
             Log.d(tag2, "setCalendar[" + i + "]" + setCalendar.getTime());
 
+            //Alarm
             Intent objIntent = new Intent(getBaseContext(), AlarmReceiver.class);
             PendingIntent objPendingIntent = PendingIntent.getBroadcast(getBaseContext(), 1, objIntent, 0);
             AlarmManager objAlarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
