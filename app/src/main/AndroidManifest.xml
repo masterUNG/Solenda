@@ -18,6 +18,9 @@
         <activity android:name=".ShowToDoList" />
         <activity android:name=".AddToDoList" />
         <activity android:name=".MainActivity"></activity>
+
+        <receiver android:name=".AlarmReceiver" android:process=":remote"/>
+
     </application>
 
 </manifest>

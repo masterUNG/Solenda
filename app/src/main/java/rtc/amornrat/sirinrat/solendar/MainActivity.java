@@ -1,7 +1,9 @@
 package rtc.amornrat.sirinrat.solendar;
 
 import android.app.Activity;
+import android.app.AlarmManager;
 import android.app.AlertDialog;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -141,13 +143,19 @@ public class MainActivity extends Activity implements OnClickListener {
             Calendar objCalendar = Calendar.getInstance();
             Calendar setCalendar = (Calendar) objCalendar.clone();
 
-            setCalendar.set(Calendar.DATE, Integer.parseInt(dayStrings[0]));
-            setCalendar.set(Calendar.MONTH, monthInts[0]);
+//            setCalendar.set(Calendar.DATE, Integer.parseInt(dayStrings[0]));
+            setCalendar.set(Calendar.DATE, 17);
+//            setCalendar.set(Calendar.MONTH, monthInts[0]);
+            setCalendar.set(Calendar.MONTH, 0);
             setCalendar.set(Calendar.HOUR_OF_DAY, objCalendar.get(Calendar.HOUR_OF_DAY));
             setCalendar.set(Calendar.MINUTE, objCalendar.get(Calendar.MINUTE) + 1);
 
             Log.d(tag2, "setCalendar[" + i + "]" + setCalendar.getTime());
 
+            Intent objIntent = new Intent(getBaseContext(), AlarmReceiver.class);
+            PendingIntent objPendingIntent = PendingIntent.getBroadcast(getBaseContext(), 1, objIntent, 0);
+            AlarmManager objAlarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+            objAlarmManager.set(AlarmManager.RTC_WAKEUP, setCalendar.getTimeInMillis(), objPendingIntent);
 
 
             objCursor.moveToNext();
