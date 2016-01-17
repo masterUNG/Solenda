@@ -7,7 +7,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
-import android.net.Uri;
 import android.widget.Toast;
 
 /**
@@ -21,17 +20,14 @@ public class AlarmReceiver extends BroadcastReceiver{
         MediaPlayer alarmMediaPlayer = MediaPlayer.create(context, R.raw.intro_start_horse);
         alarmMediaPlayer.start();
 
-//        MainActivity objMainActivity = new MainActivity();
-//        objMainActivity.masterNotification();
 
-        Intent objIntent = new Intent(Intent.ACTION_VIEW);
-        objIntent.setData(Uri.parse("http://androidthai.in.th/about-me.html"));
+        Intent objIntent = new Intent(context, MainActivity.class);
         PendingIntent objPendingIntent = PendingIntent.getActivity(context, 0, objIntent, 0);
 
         Notification objNotification = new Notification.Builder(context)
                 .setSmallIcon(R.drawable.icon_cow)
-                .setContentTitle("Title")
-                .setContentText("Message")
+                .setContentTitle("ข้อความเตือน")
+                .setContentText("มีภาระกิจที่ต้องทำ")
                 .setAutoCancel(true)
                 .setContentIntent(objPendingIntent)
                 .build();

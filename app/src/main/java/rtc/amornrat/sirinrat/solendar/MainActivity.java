@@ -2,8 +2,6 @@ package rtc.amornrat.sirinrat.solendar;
 
 import android.app.AlarmManager;
 import android.app.AlertDialog;
-import android.app.Notification;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -11,7 +9,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -109,24 +106,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 
     }   // Main Method
 
-    public void masterNotification() {
 
-        Intent objIntent = new Intent(Intent.ACTION_VIEW);
-        objIntent.setData(Uri.parse("http://androidthai.in.th/about-me.html"));
-        PendingIntent objPendingIntent = PendingIntent.getActivity(this, 0, objIntent, 0);
-
-        Notification objNotification = new Notification.Builder(this)
-                .setSmallIcon(R.drawable.icon_cow)
-                .setContentTitle("Title")
-                .setContentText("Message")
-                .setAutoCancel(true)
-                .setContentIntent(objPendingIntent)
-                .build();
-
-        NotificationManager objNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        objNotificationManager.notify(1000, objNotification);
-
-    }   // masterNotification
 
     private void findDateNotification() {
 
@@ -166,10 +146,13 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
             Calendar setCalendar = (Calendar) objCalendar.clone();
 
 //            setCalendar.set(Calendar.DATE, Integer.parseInt(dayStrings[0]));
-            setCalendar.set(Calendar.DATE, 17);
+
+            setCalendar.set(Calendar.DATE, 17); // กำหนดวันที่ ตรงนี่นะ
 //            setCalendar.set(Calendar.MONTH, monthInts[0]);
-            setCalendar.set(Calendar.MONTH, 0);
+            setCalendar.set(Calendar.MONTH, 0); // เดือนมกรา 0
+//            setCalendar.set(Calendar.HOUR_OF_DAY, 7);
             setCalendar.set(Calendar.HOUR_OF_DAY, objCalendar.get(Calendar.HOUR_OF_DAY));
+//            setCalendar.set(Calendar.MINUTE, 0);
             setCalendar.set(Calendar.MINUTE, objCalendar.get(Calendar.MINUTE) + 1);
             setCalendar.set(Calendar.SECOND, 0);
 
