@@ -107,6 +107,7 @@ public class MainActivity extends Activity implements OnClickListener {
     private void findDateNotification() {
 
         String tag = "masterSolendar";
+        String tag2 = "masterSolendar2";
 
         //Read All Column Date
         SQLiteDatabase objSqLiteDatabase = openOrCreateDatabase(MyOpenHelper.DATABASE_NAME,
@@ -137,6 +138,15 @@ public class MainActivity extends Activity implements OnClickListener {
             Log.d(tag, "year[" + Integer.toString(i) + "] = " + yearStrings[i]);
             Log.d(tag, "intMonth[" + Integer.toString(i) + "] = " + Integer.toString(monthInts[i]));
 
+            Calendar objCalendar = Calendar.getInstance();
+            Calendar setCalendar = (Calendar) objCalendar.clone();
+
+            setCalendar.set(Calendar.DATE, Integer.parseInt(dayStrings[0]));
+            setCalendar.set(Calendar.MONTH, monthInts[0]);
+            setCalendar.set(Calendar.HOUR_OF_DAY, objCalendar.get(Calendar.HOUR_OF_DAY));
+            setCalendar.set(Calendar.MINUTE, objCalendar.get(Calendar.MINUTE) + 1);
+
+            Log.d(tag2, "setCalendar[" + i + "]" + setCalendar.getTime());
 
 
 
