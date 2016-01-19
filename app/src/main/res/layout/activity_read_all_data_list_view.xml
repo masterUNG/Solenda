@@ -17,6 +17,7 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:onClick="clickBackToDo"
         android:text="Back"
         android:id="@+id/button4"
         android:layout_alignParentBottom="true" />
