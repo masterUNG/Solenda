@@ -17,10 +17,13 @@
         </activity>
         <activity android:name=".ShowToDoList" />
         <activity android:name=".AddToDoList" />
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".MainActivity" />
 
-        <receiver android:name=".AlarmReceiver" android:process=":remote"/>
+        <receiver
+            android:name=".AlarmReceiver"
+            android:process=":remote" />
 
+        <activity android:name=".ReadAllDataListView"></activity>
     </application>
 
 </manifest>

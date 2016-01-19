@@ -106,6 +106,10 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 
     }   // Main Method
 
+    public void clickReadAllData(View view) {
+        startActivity(new Intent(MainActivity.this, ReadAllDataListView.class));
+    }
+
 
 
     private void findDateNotification() {
